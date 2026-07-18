@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T20:29:23.122Z",
+  "generatedAt": "2026-07-18T20:45:50.857Z",
   "date": "2026-07-18",
   "mode": "vorschau",
   "sections": {
@@ -86,7 +86,7 @@
         "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/home-depot-stock-trades-steadily-as-housing-demand-supports-outlook/69798466",
         "source": "ad-hoc-news.de",
         "timePublished": "20260718T195908",
-        "sentimentScore": 0.414527,
+        "sentimentScore": 0.396454,
         "sentimentLabel": "Bullish",
         "tickers": [
           "HD"
@@ -98,7 +98,7 @@
         "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/alphabet-stock-trades-steady-as-alphabet-c-reports-resilient-ad-and-cloud/69798450",
         "source": "ad-hoc-news.de",
         "timePublished": "20260718T195500",
-        "sentimentScore": 0.007169,
+        "sentimentScore": 0.046921,
         "sentimentLabel": "Neutral",
         "tickers": [
           "GOOG"
@@ -110,7 +110,7 @@
         "url": "https://finance.yahoo.com/markets/stocks/articles/innodata-inod-stock-looks-expensive-211121017.html",
         "source": "Yahoo Finance",
         "timePublished": "20260718T193941",
-        "sentimentScore": -0.206433,
+        "sentimentScore": -0.212758,
         "sentimentLabel": "Somewhat-Bearish",
         "tickers": [
           "INOD"
@@ -122,7 +122,7 @@
         "url": "https://www.tradingview.com/symbols/AMEX-ILOW/profile/",
         "source": "TradingView",
         "timePublished": "20260718T193930",
-        "sentimentScore": 0.314559,
+        "sentimentScore": 0.304653,
         "sentimentLabel": "Somewhat-Bullish",
         "tickers": [
           "ILOW"
@@ -134,7 +134,7 @@
         "url": "https://www.businesswire.com/news/home/20260718317710/en/INTU-Investors-Have-Opportunity-to-Lead-Intuit-Inc.-Securities-Fraud-Lawsuit-with-the-Schall-Law-Firm",
         "source": "Business Wire",
         "timePublished": "20260718T193550",
-        "sentimentScore": -0.740932,
+        "sentimentScore": -0.723461,
         "sentimentLabel": "Bearish",
         "tickers": [
           "INTU"
@@ -146,7 +146,7 @@
         "url": "https://simplywall.st/stocks/us/pharmaceuticals-biotech/nasdaq-insm/insmed/news/insmed-insm-reports-12-month-tpip-data-that-sets-up-phase-3",
         "source": "Simply Wall Street",
         "timePublished": "20260718T192953",
-        "sentimentScore": 0.231317,
+        "sentimentScore": 0.249744,
         "sentimentLabel": "Somewhat-Bullish",
         "tickers": [
           "INSM",
@@ -160,7 +160,7 @@
         "url": "https://simplywall.st/stocks/us/commercial-services/nasdaq-vrsk/verisk-analytics/news/verisk-analytics-vrsk-stock-looks-below-fair-value-while-ear",
         "source": "Simply Wall Street",
         "timePublished": "20260718T192950",
-        "sentimentScore": -0.144065,
+        "sentimentScore": -0.147553,
         "sentimentLabel": "Neutral",
         "tickers": [
           "VRSK"
@@ -172,7 +172,7 @@
         "url": "https://simplywall.st/stocks/us/semiconductors/nasdaq-txn/texas-instruments/news/texas-instruments-txn-declares-its-quarterly-dividend-is-the",
         "source": "Simply Wall Street",
         "timePublished": "20260718T192944",
-        "sentimentScore": 0.15779,
+        "sentimentScore": 0.175607,
         "sentimentLabel": "Somewhat-Bullish",
         "tickers": [
           "TXN",
@@ -186,7 +186,7 @@
         "url": "https://simplywall.st/stocks/us/materials/nyse-pkg/packaging-corporation-of-america/news/packaging-corp-pkg-stock-could-be-below-fair-value-as-cash-f",
         "source": "Simply Wall Street",
         "timePublished": "20260718T192921",
-        "sentimentScore": 0.123918,
+        "sentimentScore": 0.130975,
         "sentimentLabel": "Neutral",
         "tickers": [
           "PKG"
@@ -198,7 +198,7 @@
         "url": "https://www.tradingview.com/symbols/FINRA-BCS6151031/profile-overview/",
         "source": "TradingView",
         "timePublished": "20260718T184053",
-        "sentimentScore": -0.075513,
+        "sentimentScore": -0.067785,
         "sentimentLabel": "Neutral",
         "tickers": [
           "JJS",
