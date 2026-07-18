@@ -1,0 +1,39 @@
+name: Wochenbriefing aktualisieren
+
+on:
+  schedule:
+    # Achtung: Zeiten sind UTC! Schweiz = UTC+1 (Winter) / UTC+2 (Sommer)
+    - cron: "0 6 * * 1"   # Montag ca. 07:00/08:00 Schweizer Zeit -> Vorschau
+    - cron: "0 15 * * 5"  # Freitag ca. 16:00/17:00 Schweizer Zeit -> Rückblick
+  workflow_dispatch: {}   # erlaubt manuelles Auslösen zum Testen
+
+permissions:
+  contents: write
+
+jobs:
+  update-briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Abhängigkeiten installieren
+        run: npm install
+
+      - name: Briefing-Daten holen
+        env:
+          ALPHA_VANTAGE_KEY: ${{ secrets.ALPHA_VANTAGE_KEY }}
+        run: npm run fetch
+
+      - name: Änderungen committen
+        run: |
+          git config user.name "wochenbriefing-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          git diff --quiet --cached || git commit -m "Briefing-Update $(date -u +%Y-%m-%d)"
+          git push
