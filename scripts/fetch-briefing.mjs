@@ -20,8 +20,6 @@ const RSS_FEEDS = {
 
 const parser = new Parser({ timeout: 15000 });
 
-// --- Hilfsfunktionen -------------------------------------------------
-
 async function fetchRss(url, limit = 6) {
   try {
     const feed = await parser.parseURL(url);
@@ -33,7 +31,7 @@ async function fetchRss(url, limit = 6) {
     }));
   } catch (err) {
     console.error(`RSS-Fehler bei ${url}:`, err.message);
-    return []; // graceful fallback – ein kaputter Feed blockiert nicht alles
+    return [];
   }
 }
 
@@ -64,9 +62,6 @@ async function fetchAlphaVantageNews() {
 }
 
 function sentimentToBadge(label) {
-  // Mapping gemäss Alpha Vantage Doku:
-  // x<=-0.35 Bearish, -0.35<x<=-0.15 Somewhat-Bearish, -0.15<x<0.15 Neutral,
-  // 0.15<=x<0.35 Somewhat_Bullish, x>=0.35 Bullish
   if (!label) return "neutral";
   const l = label.toLowerCase();
   if (l.includes("bearish")) return "negative";
@@ -74,15 +69,13 @@ function sentimentToBadge(label) {
   return "neutral";
 }
 
-// --- Hauptlauf ---------------------------------------------------------
-
 async function main() {
   const now = new Date();
   const isoDate = now.toISOString().slice(0, 10);
-  const weekday = now.getUTCDay(); // 1 = Montag, 5 = Freitag
+  const weekday = now.getUTCDay();
   const mode = weekday === 5 ? "rueckblick" : "vorschau";
 
-  console.log(`Baue Briefing (${mode}) für ${isoDate}...`);
+  console.log(`Baue Briefing (${mode}) fuer ${isoDate}...`);
 
   const [schlagzeilen, geopolitik, schweiz, finanzNews] = await Promise.all([
     fetchRss(RSS_FEEDS.schlagzeilen),
@@ -99,11 +92,35 @@ async function main() {
   const briefing = {
     generatedAt: now.toISOString(),
     date: isoDate,
-    mode, // "vorschau" (Montag) oder "rueckblick" (Freitag)
+    mode,
     sections: {
       schlagzeilen,
       geopolitik,
       schweiz,
       finanzen: finanzNewsMitBadge,
     },
-    dis
+    disclaimer:
+      "Keine Anlageberatung - automatisch aus oeffentlich verfuegbaren " +
+      "Quellen zusammengestellt (Alpha Vantage, SRF, Reuters, NZZ).",
+  };
+
+  const dataDir = path.resolve("data");
+  const archiveDir = path.resolve("data", "archive");
+  await mkdir(archiveDir, { recursive: true });
+
+  await writeFile(
+    path.join(dataDir, "latest.json"),
+    JSON.stringify(briefing, null, 2)
+  );
+  await writeFile(
+    path.join(archiveDir, `${isoDate}-${mode}.json`),
+    JSON.stringify(briefing, null, 2)
+  );
+
+  console.log("Fertig. latest.json + Archiv-Datei geschrieben.");
+}
+
+main().catch((err) => {
+  console.error("Unerwarteter Fehler:", err);
+  process.exit(1);
+});
