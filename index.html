@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wochenbriefing</title>
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1a1a2e" />
+<link rel="icon" href="icons/icon-192.png" />
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --card-hover: #22223a;
+    --text: #e8e8f0;
+    --muted: #9494a8;
+    --accent: #5b8def;
+    --positive: #3ecf8e;
+    --neutral: #9494a8;
+    --negative: #ef5b5b;
+    --border: #2a2a42;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 16px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  header {
+    padding: 20px 4px 12px;
+  }
+  header h1 {
+    font-size: 1.4rem;
+    margin: 0 0 4px;
+  }
+  header .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .mode-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  section.block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  section.block > .block-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  section.block > .block-header h2 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  section.block > .block-header .chevron {
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  section.block.open > .block-header .chevron {
+    transform: rotate(180deg);
+  }
+  .block-body {
+    display: none;
+    padding: 0 16px 16px;
+  }
+  section.block.open .block-body {
+    display: block;
+  }
+  .item {
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+  }
+  .item:first-child { border-top: none; }
+  .item a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .item a:hover { color: var(--accent); }
+  .item .summary {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  .item .item-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .badge {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge.positive { background: rgba(62,207,142,0.15); color: var(--positive); }
+  .badge.neutral  { background: rgba(148,148,168,0.15); color: var(--neutral); }
+  .badge.negative { background: rgba(239,91,91,0.15); color: var(--negative); }
+  .empty {
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 8px 0;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.75rem;
+    padding: 24px 8px;
+    line-height: 1.5;
+  }
+  #archive-link {
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📊 Wochenbriefing<span id="mode-badge" class="mode-badge">…</span></h1>
+  <div class="meta" id="meta-line">Lade Daten…</div>
+</header>
+
+<section class="block open" id="block-schlagzeilen">
+  <div class="block-header" onclick="toggle('block-schlagzeilen')">
+    <h2>1) Wichtigste Schlagzeilen</h2>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="block-body" id="content-schlagzeilen"></div>
+</section>
+
+<section class="block" id="block-geopolitik">
+  <div class="block-header" onclick="toggle('block-geopolitik')">
+    <h2>2) Politik &amp; Geopolitik</h2>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="block-body" id="content-geopolitik"></div>
+</section>
+
+<section class="block" id="block-schweiz">
+  <div class="block-header" onclick="toggle('block-schweiz')">
+    <h2>3) Wichtiges aus der Schweiz</h2>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="block-body" id="content-schweiz"></div>
+</section>
+
+<section class="block" id="block-finanzen">
+  <div class="block-header" onclick="toggle('block-finanzen')">
+    <h2>4) Finanzen</h2>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="block-body" id="content-finanzen"></div>
+</section>
+
+<footer>
+  <div id="disclaimer">Keine Anlageberatung.</div>
+  <div style="margin-top:8px;"><a id="archive-link" href="archive.html">Vergangene Briefings ansehen →</a></div>
+</footer>
+
+<script>
+function toggle(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('de-CH', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+function renderNewsItem(item) {
+  const summary = item.summary ? `<div class="summary">${item.summary}</div>` : '';
+  return `
+    <div class="item">
+      <a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
+      ${summary}
+    </div>`;
+}
+
+function renderFinanceItem(item) {
+  const tickers = (item.tickers || []).join(', ');
+  return `
+    <div class="item">
+      <a href="${item.url}" target="_blank" rel="noopener">${item.title}</a>
+      <div class="item-meta">
+        <span class="badge ${item.badge}">${item.sentimentLabel || 'Neutral'}</span>
+        ${tickers ? `<span>${tickers}</span>` : ''}
+        <span>${item.source || ''}</span>
+      </div>
+    </div>`;
+}
+
+async function loadBriefing(jsonPath = 'data/latest.json') {
+  try {
+    const res = await fetch(jsonPath + '?t=' + Date.now()); // Cache-Bust
+    const data = await res.json();
+
+    const modeLabel = data.mode === 'rueckblick' ? 'Rückblick' : 'Vorschau';
+    document.getElementById('mode-badge').textContent = modeLabel;
+    document.getElementById('meta-line').textContent =
+      `${fmtDate(data.date)} · zuletzt aktualisiert ${new Date(data.generatedAt).toLocaleString('de-CH')}`;
+    document.getElementById('disclaimer').textContent = data.disclaimer || '';
+
+    const s = data.sections || {};
+    document.getElementById('content-schlagzeilen').innerHTML =
+      (s.schlagzeilen || []).map(renderNewsItem).join('') || '<div class="empty">Keine Daten.</div>';
+    document.getElementById('content-geopolitik').innerHTML =
+      (s.geopolitik || []).map(renderNewsItem).join('') || '<div class="empty">Keine Daten.</div>';
+    document.getElementById('content-schweiz').innerHTML =
+      (s.schweiz || []).map(renderNewsItem).join('') || '<div class="empty">Keine Daten.</div>';
+    document.getElementById('content-finanzen').innerHTML =
+      (s.finanzen || []).map(renderFinanceItem).join('') || '<div class="empty">Keine Daten.</div>';
+  } catch (err) {
+    document.getElementById('meta-line').textContent = 'Fehler beim Laden der Daten: ' + err.message;
+  }
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const requestedFile = urlParams.get('data');
+loadBriefing(requestedFile || 'data/latest.json');
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+
+</body>
+</html>

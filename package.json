@@ -1,0 +1,12 @@
+{
+  "name": "wochenbriefing-app",
+  "version": "1.0.0",
+  "description": "Automatisches Wochenbriefing: Schlagzeilen, Geopolitik, Schweiz, Finanzen",
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetch-briefing.mjs"
+  },
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
+}
