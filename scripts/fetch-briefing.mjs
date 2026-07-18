@@ -1,6 +1,6 @@
 // fetch-briefing.mjs
 // Holt Finanzdaten (Alpha Vantage) + News (RSS) und schreibt sie als JSON
-// für das Dashboard. Läuft automatisch via GitHub Actions (Mo/Fr).
+// fuer das Dashboard. Laeuft automatisch via GitHub Actions (Mo/Fr).
 
 import Parser from "rss-parser";
 import { writeFile, mkdir } from "node:fs/promises";
@@ -118,6 +118,7 @@ async function main() {
   );
 
   console.log("Fertig. latest.json + Archiv-Datei geschrieben.");
+  process.exit(0);
 }
 
 main().catch((err) => {
